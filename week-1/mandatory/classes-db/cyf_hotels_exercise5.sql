@@ -33,7 +33,8 @@ CREATE TABLE bookings (
 
 select * from bookings;
 
-INSERT INTO customers (name, email, address, city, postcode, country) VALUES ('John Smith','j.smith@johnsmith.org','11 New Road','Liverpool','L10 2AB','UK');
+INSERT INTO customers (name,        email,                   address,     city,       postcode, country) 
+              VALUES  ('John Smith','j.smith@johnsmith.org','11 New Road','Liverpool','L10 2AB','UK');
 INSERT INTO customers (name, email, address, city, postcode, country) VALUES ('Sue Jones','s.jones1234@gmail.com','120 Old Street','London','N10 3CD','UK');
 INSERT INTO customers (name, email, address, city, postcode, country) VALUES ('Alice Evans','alice.evans001@hotmail.com','3 High Road','Manchester','m13 4ef','UK');
 INSERT INTO customers (name, email, address, city, postcode, country) VALUES ('Mohammed Trungpa','mo.trungpa@hotmail.com','25 Blue Road','Manchester','M25 6GH','UK');

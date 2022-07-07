@@ -25,7 +25,7 @@ CREATE TABLE mentors (
 --Ejercicio 3
 
 INSERT INTO mentors (name,                  years_glasgow,  address,        favorite_language) 
-              VALUES('Vanessa Marin',       '2',            'Manresa',      'javascript');
+              VALUES('Angel Matos',         '2',            'Barcelona',    'React');
 INSERT INTO mentors (name,                  years_glasgow,  address,        favorite_language) 
               VALUES('Yhenifer Pulido',     '5',            'Barcelona',    'react');
 INSERT INTO mentors (name,                  years_glasgow,  address,        favorite_language) 
@@ -54,11 +54,11 @@ CREATE TABLE students (
 --Ejercicio 5
 
 INSERT INTO students (name,                     address,        graduate_cyf) 
-               VALUES('Madeline Rivera',        'Manresa',      'si');
+               VALUES('Angel Matos',            'Barcelona',    'si');
 INSERT INTO students (name,                     address,        graduate_cyf) 
-               VALUES('Noah Palacios',          'Barcelona',    'no');
+               VALUES('Daniel Vigali',          'Barcelona',    'si');
 INSERT INTO students (name,                     address,        graduate_cyf) 
-               VALUES('Gaia Palacios',          'Vic',          'si');
+               VALUES('Vanesa Marin',           'Manresa',      'si');
 INSERT INTO students (name,                     address,        graduate_cyf) 
                VALUES('Maria Camila Valencia',  'Badalona',     'si');
 INSERT INTO students (name,                     address,        graduate_cyf) 
@@ -85,7 +85,7 @@ select * from students;
 CREATE TABLE classes (
     
     id                  SERIAL PRIMARY KEY,
-    mentor              VARCHAR(30) NOT NULL,
+    leading_mentor      VARCHAR(30) NOT NULL,
     topic               VARCHAR(120),
     specific_date       DATE NOT NULL,
     specific_location   VARCHAR(30)
@@ -93,12 +93,12 @@ CREATE TABLE classes (
 
 --Ejercicio 8
 
-INSERT INTO classes  (mentor,               topic,          specific_date,      specific_location) 
-               VALUES('Jorge Pulido',       'NodeJS',       '2022-06-15',       'Manresa');
-INSERT INTO classes  (mentor,               topic,          specific_date,      specific_location) 
+INSERT INTO classes  (leading_mentor,       topic,          specific_date,      specific_location) 
+               VALUES('Eduard Bargues',     'NodeJS',       '2022-05-15',       'Barcelona');
+INSERT INTO classes  (leading_mentor,       topic,          specific_date,      specific_location) 
                VALUES('Jesus Valencia',     'Javascript',   '2022-04-14',       'Barcelona');
-INSERT INTO classes  (mentor,               topic,          specific_date,      specific_location) 
-               VALUES('Francisco Camacho',  'NodeJS',       '2021-11-12',       'Terrasa');
+INSERT INTO classes  (leading_mentor,       topic,          specific_date,      specific_location) 
+               VALUES('Eduard Bargues',     'SQL',          '2022-06-01',       'Barcelona');
 
 select * from classes;
 
