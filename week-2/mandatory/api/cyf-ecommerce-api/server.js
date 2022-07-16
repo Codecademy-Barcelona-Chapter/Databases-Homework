@@ -21,26 +21,40 @@ app.get("/suppliers", (req, res) => {
   });
 });
 app.get("/products", (req, res) => {
-  pool.query("SELECT * FROM products", (error, result) => {
-    res.json(result.rows);
-  });
-});
-
-//task
-// 1
-app.get("/customers", (req, res) => {
-  const country = req.query.country;
-  if (!country) {
-    pool.query("SELECT * FROM customers", (error, result) => {
+  const price = req.query.unit_price;
+  if (!price) {
+    pool.query("SELECT * FROM products", (error, result) => {
       res.json(result.rows);
     });
   } else {
-    pool.query(
-      `SELECT name, address FROM customers WHERE country='${country}'`,
-      (error, result) => {
-        res.json(result.rows);
-      }
-    );
+    pool
+      .query(
+        `SELECT * FROM products WHERE unit_price >'${price}'`,
+        (error, result) => {
+          res.json(result.rows);
+        }
+      )
+      .catch((error) => console.log(error));
+  }
+});
+
+//task
+// 1,2,
+app.get("/customers", (req, res) => {
+  const country = req.query.country;
+  if (!country) {
+    pool.query("SELECT * FROM customers ORDER BY name", (error, result) => {
+      res.json(result.rows);
+    });
+  } else {
+    pool
+      .query(
+        `SELECT name, address FROM customers WHERE country='${country}'`,
+        (error, result) => {
+          res.json(result.rows);
+        }
+      )
+      .catch((error) => console.log(error));
   }
 });
 
