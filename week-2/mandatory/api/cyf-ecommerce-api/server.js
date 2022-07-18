@@ -22,19 +22,28 @@ app.get("/suppliers", (req, res) => {
 });
 app.get("/products", (req, res) => {
   const price = req.query.unit_price;
-  if (!price) {
+  const nameContain = req.query.name;
+  if (!price && !nameContain) {
     pool.query("SELECT * FROM products", (error, result) => {
       res.json(result.rows);
     });
   } else {
+    let query = "SELECT * FROM products WHERE ";
+    priceQuery = `unit_price > ${price}`;
+    nameQuery = `product_name LIKE '%${nameContain}%'`;
+    if (nameContain && price) {
+      query += `${priceQuery} AND ${nameQuery}`;
+    } else {
+      if (nameContain) query += nameQuery;
+      if (price) query += priceQuery;
+    }
+    console.log(query);
     pool
-      .query(
-        `SELECT * FROM products WHERE unit_price >'${price}'`,
-        (error, result) => {
-          res.json(result.rows);
-        }
-      )
-      .catch((error) => console.log(error));
+      .query(query)
+      .then((result) => {
+        res.json(result.rows);
+      })
+      .catch((e) => console.error(e));
   }
 });
 
@@ -54,7 +63,7 @@ app.get("/customers", (req, res) => {
           res.json(result.rows);
         }
       )
-      .catch((error) => console.log(error));
+      .catch((e) => console.error(e));
   }
 });
 
