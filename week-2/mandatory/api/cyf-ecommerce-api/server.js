@@ -28,22 +28,27 @@ app.get("/products", (req, res) => {
       res.json(result.rows);
     });
   } else {
-    let query = "SELECT * FROM products WHERE ";
-    priceQuery = `unit_price > ${price}`;
-    nameQuery = `product_name LIKE '%${nameContain}%'`;
+    let query = "SELECT * FROM products  ";
+    priceQuery = `WHERE unit_price > ${price}`;
+    nameQuery = `WHERE product_name LIKE '%${nameContain}%'`;
+    lastFive = `ORDER BY unit_price DESC LIMIT 5`;
     if (nameContain && price) {
       query += `${priceQuery} AND ${nameQuery}`;
     } else {
       if (nameContain) query += nameQuery;
       if (price) query += priceQuery;
+      if (!price) query += lastFive;
+  'SELECT product_name, supplier_name, unit_price FROM products AS p INNER JOIN suppliers AS s ON s.id=p.suppliers_id;'
+
     }
+    
     console.log(query);
     pool
-      .query(query)
-      .then((result) => {
-        res.json(result.rows);
-      })
-      .catch((e) => console.error(e));
+    .query(query)
+    .then((result) => {
+      res.json(result.rows);
+    })
+    .catch((e) => console.error(e));
   }
 });
 
@@ -57,16 +62,16 @@ app.get("/customers", (req, res) => {
     });
   } else {
     pool
-      .query(
-        `SELECT name, address FROM customers WHERE country='${country}'`,
-        (error, result) => {
-          res.json(result.rows);
-        }
+    .query(
+      `SELECT name, address FROM customers WHERE country='${country}'`,
       )
+      .then((result) => {
+        res.json(result.rows);
+      })
       .catch((e) => console.error(e));
-  }
-});
-
-app.listen(3000, () =>
+    }
+  });
+  
+  app.listen(3000, () =>
   console.log("Server is up and running at http://127.0.0.1:3000")
-);
+  );
